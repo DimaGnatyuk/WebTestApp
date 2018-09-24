@@ -9,11 +9,11 @@ import {
 import * as fromUsers from './users';
 
 export interface State {
-    films: fromUsers.State;
+    users: any;
 }
 
 export const reducers: ActionReducerMap<State> = {
-    films: fromUsers.reducer
+    users: fromUsers.reducer
 };
 
 
@@ -28,37 +28,37 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
 export const metaReducers: MetaReducer<State>[] = [logger];
 
 
-export const getFilmState = createFeatureSelector<fromUsers.State>('films');
+export const getUserState = createFeatureSelector<fromUsers.State>('users');
 
 export const getIds = createSelector(
-    getFilmState,
+    getUserState,
     fromUsers.getIds,
 );
 
-export const getFilms = createSelector(
-    getFilmState,
+export const getUsers = createSelector(
+    getUserState,
     fromUsers.getUsers,
 );
 
 export const getSelected = createSelector(
-    getFilmState,
+    getUserState,
     fromUsers.getSelected,
 );
 
-export const getSelectedFilm = createSelector(
+export const getSelectedUser = createSelector(
     getSelected,
-    getFilms,
-    (selectedId, films) => {
+    getUserState,
+    (selectedId, users) => {
         return {
-            ...films[selectedId]
+            ...users[selectedId]
         };
     }
 );
 
 export const getAllFilms = createSelector(
     getIds,
-    getFilms,
-    (ids, films) => {
-        return ids.map(id => films[id]);
+    getUserState,
+    (ids, users) => {
+        return ids.map(id => users[id]);
     }
 );

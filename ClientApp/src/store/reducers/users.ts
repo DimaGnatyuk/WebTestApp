@@ -2,9 +2,9 @@ import { UserDto } from "../../models/user.dto";
 import * as userAction from '../actions/user.actions';
 
 export interface State {
-    ids: number[];
-    users: { [id: number]: UserDto };
-    selected: number;
+    ids: string[];
+    users: { [id: string]: UserDto };
+    selected: string;
 }
 
 export const initialState: State = {
@@ -16,11 +16,11 @@ export const initialState: State = {
 export function reducer(state = initialState, action: userAction.Action) {
     switch (action.type) {
         case userAction.ADD: {
-            const newFilm: UserDto = action.payload;
+            const newUser: UserDto = action.payload;
             return {
                 ...state,
-                ids: [...state.ids, newFilm.id],
-                films: { ...state.users, newFilm }
+                ids: [...state.ids, newUser.id],
+                films: { ...state.users, newUser }
             };
         }
         case userAction.SELECT: {

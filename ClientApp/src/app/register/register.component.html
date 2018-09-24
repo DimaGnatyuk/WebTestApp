@@ -1,0 +1,27 @@
+<mat-grid-list cols="12" rowHeight="100%">
+  <mat-grid-tile [colspan]="12" [rowspan]="1">
+    <mat-card class="register-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Register form</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="register-form" [formGroup]="registerForm">
+          <mat-form-field class="register-full-width">
+            <input id="input-email" matInput type="email" formControlName="email" placeholder="Enter email">
+          </mat-form-field>
+          <mat-form-field class="register-full-width">
+            <input id="input-password" matInput formControlName="password" type="password" placeholder="Enter password">
+          </mat-form-field>
+          <mat-form-field class="register-full-width">
+            <input id="input-password" matInput formControlName="confirmPassword" type="password" placeholder="Confirm password">
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button id="register-btn" (click)="onSubmit()" [disabled]="!registerForm.valid" mat-raised-button color="primary">Register</button>
+        <button id="login-btn" [routerLink]='["/register"]' mat-raised-button color="accent">Login</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
