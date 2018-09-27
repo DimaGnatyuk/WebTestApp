@@ -2,17 +2,17 @@ import { Injectable } from "@angular/core";
 import { CanActivate, Router } from "@angular/router";
 import { AuthUserDto } from "../models/auth.user.dto";
 import { StorageService } from "./storage.service";
+import { GlobalVars } from "../vars/global.vars";
 
 const USER = 'user';
 
 @Injectable()
 export class SecurityService {
 
-    private readonly url: string = 'user/';
-
     constructor(
             public router: Router,
-            private readonly storageService: StorageService
+            private readonly storageService: StorageService,
+            private readonly gVars: GlobalVars
         ) {
     }
 
@@ -36,7 +36,6 @@ export class SecurityService {
 
     public loadAuthorized() {
         var user = this.getUser();
-
-        //return this.globals.isAuthorized;
+        this.gVars.user = user;
     }
 }

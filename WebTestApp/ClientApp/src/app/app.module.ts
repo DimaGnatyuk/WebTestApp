@@ -16,12 +16,23 @@ import { AdminUsersComponent } from './admin/users/admin.users.component';
 import { Http, RequestOptions } from '@angular/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
  
+import { StorageService } from '../services/storage.service';
+import { SecurityService } from '../services/security.service';
+import { LoginComponent } from './login/login.component';
+import { UserService } from '../services/user.service';
+import { UsersService } from '../services/users.service';
+import { UrlProvider } from '../providers/url.provider';
+import { HttpModule } from '@angular/http';
+
+import { GlobalVars } from './../vars/global.vars';
+
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
 }
 
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from '../store/reducers';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import 'hammerjs';
 
@@ -62,12 +73,6 @@ import {
   MatTooltipModule,
   MatTreeModule
 } from '@angular/material';
-import { StorageService } from '../services/storage.service';
-import { SecurityService } from '../services/security.service';
-import { LoginComponent } from './login/login.component';
-import { UserService } from '../services/user.service';
-import { UrlProvider } from '../providers/url.provider';
-import { HttpModule } from '@angular/http';
 
 export const MATERIAL_MODULES = [
   MatAutocompleteModule,
@@ -153,9 +158,11 @@ import { RegisterComponent } from './register/register.component';
     ...MATERIAL_MODULES,
     StoreModule.forRoot(reducers, { metaReducers }),
     MatNativeDateModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    AngularFontAwesomeModule
   ],
   providers: [
+    GlobalVars,
     UrlProvider,
     StorageService,
     SecurityService,
@@ -165,7 +172,8 @@ import { RegisterComponent } from './register/register.component';
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
     },
-    UserService
+    UserService,
+    UsersService
   ],
   bootstrap: [AppComponent]
 })

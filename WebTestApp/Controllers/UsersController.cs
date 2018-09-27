@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ using WebTestApp.BLL.Components.UserComponents.Services.Interfaces;
 
 namespace WebTestApp.Controllers
 {
+    [Authorize]
+    [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class UsersController : Controller

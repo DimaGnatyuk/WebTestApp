@@ -33,7 +33,7 @@ export class LoginComponent {
     this.userService.login(this.loginForm.value).subscribe(res => {
       let user = res.json();
       this.securityService.setUser(user);
-      this.notificationService.error("Success", "redirecting...")
+      this.notificationService.success("Success", "Redirecting...")
       setTimeout(()=>{
         this.router.navigate(["admin"]);
       }, 500);

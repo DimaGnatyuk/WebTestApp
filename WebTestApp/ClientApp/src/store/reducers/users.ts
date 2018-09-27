@@ -3,32 +3,28 @@ import * as userAction from '../actions/user.actions';
 
 export interface State {
     ids: string[];
-    users: { [id: string]: UserDto };
-    selected: string;
+    users: UserDto[];
 }
 
 export const initialState: State = {
     ids: [],
-    users: {},
-    selected: null,
+    users: []
 };
 
 export function reducer(state = initialState, action: userAction.Action) {
     switch (action.type) {
         case userAction.ADD: {
             const newUser: UserDto = action.payload;
-            return {
-                ...state,
-                ids: [...state.ids, newUser.id],
-                films: { ...state.users, newUser }
-            };
-        }
-        case userAction.SELECT: {
-            const id = action.payload;
-            return {
-                ...state,
-                selected: id
-            };
+            let isExist = state.users.findIndex(x=>x.id == newUser.id) != -1;
+            if (!isExist){
+                return {
+                    ...state,
+                    ids: [...state.ids, newUser.id],
+                    users: [ ...state.users, newUser ]
+                };
+            }else{
+                return state;
+            }
         }
         default:
             return state;
@@ -37,4 +33,3 @@ export function reducer(state = initialState, action: userAction.Action) {
 
 export const getIds = (state: State) => state.ids;
 export const getUsers = (state: State) => state.users;
-export const getSelected = (state: State) => state.selected;

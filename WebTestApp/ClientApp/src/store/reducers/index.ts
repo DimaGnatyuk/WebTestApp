@@ -40,22 +40,7 @@ export const getUsers = createSelector(
     fromUsers.getUsers,
 );
 
-export const getSelected = createSelector(
-    getUserState,
-    fromUsers.getSelected,
-);
-
-export const getSelectedUser = createSelector(
-    getSelected,
-    getUserState,
-    (selectedId, users) => {
-        return {
-            ...users[selectedId]
-        };
-    }
-);
-
-export const getAllFilms = createSelector(
+export const getAllUsers = createSelector(
     getIds,
     getUserState,
     (ids, users) => {

@@ -1,9 +1,10 @@
 <mat-sidenav #sidenav [mode]="'push'">
-    <p><button mat-button (click)="sidenav.toggle()"><</button></p>
-    <p><button mat-button [routerLink]='["/admin"]' (click)="sidenav.toggle()">Admin</button></p>
-    <p><button mat-button [routerLink]='["/login"]' (click)="sidenav.toggle()">Login</button></p>
-    <p><button mat-button [routerLink]='["/register"]' (click)="sidenav.toggle()">Register</button></p>
+    <p><button mat-button (click)="sidenav.toggle()"><fa name="chevron-right"></fa></button></p>
+    <p *ngIf="gVars.user"><button mat-button [routerLink]='["/admin"]' (click)="sidenav.toggle()">Admin <fa name="users"></fa></button></p>
+    <p *ngIf="gVars.user"><button mat-button (click)="sidenav.toggle(); logout()">Logout</button></p>
+    <p *ngIf="!gVars.user"><button mat-button [routerLink]='["/login"]' (click)="sidenav.toggle()">Login</button></p>
+    <p *ngIf="!gVars.user"><button mat-button [routerLink]='["/register"]' (click)="sidenav.toggle()">Register</button></p>
 </mat-sidenav>
 
 
-<mat-toolbar> <button mat-button (click)="sidenav.toggle()">></button> Test app </mat-toolbar>
+<mat-toolbar> <button mat-button (click)="sidenav.toggle()"><fa name="chevron-left"></fa></button> Test app </mat-toolbar>

@@ -1,23 +1,38 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UsersService } from '../../../services/users.service';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+
+import * as fromRoot from './../../../store/reducers';
+import * as userAction from './../../../store/actions/user.actions';
+import { UserDto } from '../../../models/user.dto';
 
 @Component({
   selector: 'admin-users-component',
-  templateUrl: './admin.users.component.html'
+  templateUrl: './admin.users.component.html', 
+  styleUrls: [
+    './admin.users.component.scss'
+  ]
 })
-export class AdminUsersComponent {
-  public forecasts: WeatherForecast[];
+export class AdminUsersComponent implements OnInit {
+  
+  public users$: Observable<UserDto[]>;
+  public displayedColumns: string[] = ['email', 'userName', 'phoneNumber'];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'api/SampleData/WeatherForecasts').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
+  constructor(
+    private readonly usersService: UsersService,
+    private store: Store<fromRoot.State>) {
+    this.users$ = store.select(s=>s.users.users);
   }
-}
 
-interface WeatherForecast {
-  dateFormatted: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
+  ngOnInit(): void {
+    this.usersService.get().subscribe(users => {
+      users.json().forEach(user => {
+        this.store.dispatch(new userAction.Add(user));
+      });
+    })
+  }
+
+  
 }

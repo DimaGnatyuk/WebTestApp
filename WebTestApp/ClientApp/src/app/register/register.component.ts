@@ -35,7 +35,7 @@ export class RegisterComponent {
       this.userService.register(this.registerForm.value).subscribe(res => {
         let user = res.json();
         this.securityService.setUser(user);
-        this.notificationService.error("Success", "You have registered")
+        this.notificationService.success("Success", "You have registered")
         setTimeout(() => {
           this.router.navigate(["login"]);
         }, 500);
